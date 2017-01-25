@@ -24,7 +24,7 @@ for obj in data:
 
 geojson_object = FeatureCollection(features)
 
-outfile = "../geodata/google_points.geojson"
+outfile = "google_points.geojson"
 with open(outfile, 'w') as outfile:
   json.dump(geojson_object, outfile)
 
