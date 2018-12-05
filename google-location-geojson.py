@@ -6,7 +6,7 @@ from time import localtime, strftime
 from geojson import Feature, Point, FeatureCollection
 
 # your location data file from Google here
-jsonFile = 'LocationHistory.json'
+jsonFile = 'Location History.json'
 
 with open(jsonFile, 'r') as f:
   data = json.load(f)
@@ -19,7 +19,10 @@ for obj in data:
     latitude = item[1]['latitudeE7'] / 1E7
     longitude = item[1]['longitudeE7'] / 1E7
     coordinates = Point((longitude, latitude))
-    feature = Feature(geometry=coordinates, properties={"accuracy": item[1]['accuracy'], "timestamp": timestamp})
+    try:
+      feature = Feature(geometry=coordinates, properties={"accuracy": item[1]['accuracy'], "timestamp": timestamp})
+    except:
+      feature = Feature(geometry=coordinates, properties={"timestamp": timestamp})
     features.append(feature)
 
 geojson_object = FeatureCollection(features)
